@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1484800705 source:d:\coding\leedcode\slidingwindowmedian\main.cpp
+	<iostream>
+	<vector>
+	<set>
+
