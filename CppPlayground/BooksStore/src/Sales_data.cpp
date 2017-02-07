@@ -6,6 +6,13 @@ Sales_data::Sales_data(std::istream &is)
     read(is, *this);
 }
 
+// 与 Sales_data 的合成的拷贝构造函数等价
+Sales_data::Sales_data(const Sales_data &orig):
+    bookNo(orig.bookNo),        // 使用 string 的拷贝构造函数
+    units_sold(orig.units_sold),    // 拷贝 orig.units_sold
+    revenue(orig.revenue)          // 拷贝 orig.revenue
+    { }                             // 空函数体
+
 double Sales_data::avg_price() const
 {
     if (units_sold)

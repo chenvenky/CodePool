@@ -21,6 +21,8 @@ Sales_data(std::string s, unsigned cnt, double price):
 Sales_data() : Sales_data("", 0, 0){ }
 Sales_data(std::string s) : Sales_data(s, 0, 0) { }
 Sales_data(std::istream &is);// 委托给第二个构造函数
+// 和合成的拷贝构造函数等价的拷贝构造函数的声明
+Sales_data(const Sales_data&);
 
     // 新成员：关于 Sales_data 对象的操作
     std::string isbn() const { return bookNo; }
@@ -36,6 +38,5 @@ Sales_data(std::istream &is);// 委托给第二个构造函数
 Sales_data add(const Sales_data&, const Sales_data&);
 std::ostream &print(std::ostream&, const Sales_data&);
 std::istream &read(std::istream&, Sales_data&);
-
 
 #endif // SALES_DATA_H
