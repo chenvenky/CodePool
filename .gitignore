@@ -3,7 +3,8 @@
 *.lo
 *.o
 *.obj
-
+*.layout
+*.cbp
 # Precompiled Headers
 *.gch
 *.pch
@@ -26,3 +27,8 @@
 *.exe
 *.out
 *.app
+
+# dir
+/bin/
+/obj/
+
