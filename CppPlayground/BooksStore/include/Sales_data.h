@@ -23,6 +23,8 @@ Sales_data(std::string s) : Sales_data(s, 0, 0) { }
 Sales_data(std::istream &is);// 委托给第二个构造函数
 // 和合成的拷贝构造函数等价的拷贝构造函数的声明
 Sales_data(const Sales_data&);
+// 和合成的拷贝赋值运算符等价的拷贝赋值函数
+Sales_data& operator=(const Sales_data&);
 
     // 新成员：关于 Sales_data 对象的操作
     std::string isbn() const { return bookNo; }

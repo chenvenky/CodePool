@@ -13,6 +13,15 @@ Sales_data::Sales_data(const Sales_data &orig):
     revenue(orig.revenue)          // 拷贝 orig.revenue
     { }                             // 空函数体
 
+// 与 Sales_data 的合成的拷贝赋值运算符等价
+Sales_data& Sales_data::operator=(const Sales_data &rhs)
+{
+    bookNo = rhs.bookNo;        // 调用 string::operator=
+    units_sold = rhs.units_sold;    // 使用内置的 int 赋值
+    revenue = rhs.revenue;          // 使用内置的 double 赋值
+    return *this;                   // 返回一个对此对象的引用
+}
+
 double Sales_data::avg_price() const
 {
     if (units_sold)
