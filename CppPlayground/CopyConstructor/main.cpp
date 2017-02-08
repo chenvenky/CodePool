@@ -51,19 +51,20 @@ class HasPtr
 public:
     HasPtr(const std::string &s = std::string()):
         ps(new std::string(s)), i(0) { }
-    HasPtr(const HasPtr& hp) : ps(new std::string(*hp.ps)), i(hp.i) { } // 拷贝构造函数
+    // 对 ps 指向的 string, 每个 HasPtr 对象都有自己的拷贝
+    HasPtr(const HasPtr& p) : ps(new std::string(*p.ps)), i(p.i) { } // 拷贝构造函数
     // 拷贝赋值函数
-    HasPtr& operator=(const HasPtr& hp)
+    HasPtr& operator=(const HasPtr& p)
     {
-        ps = new std::string(*hp.ps);
-        i = hp.i;
+        ps = new std::string(*p.ps);
+        i = p.i;
         return *this;
     }
     // 用于调试的 输出函数
     ostream& display(ostream&);
     ~HasPtr()               // 用于释放 new 分配的内存的析构函数
     {
-        delete this->ps;
+        delete ps;
     }
 private:
     std::string *ps;
