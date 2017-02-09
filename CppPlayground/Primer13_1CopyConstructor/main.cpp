@@ -49,6 +49,8 @@ ps 本身；为类添加拷贝赋值函数； 为类添加析构函数；
 class HasPtr
 {
 public:
+    // 重载标准库里定义的 swap
+    friend void swap(HasPtr&, HasPtr&);
     HasPtr(const std::string &s = std::string()):
         ps(new std::string(s)), i(0) { }
     // 对 ps 指向的 string, 每个 HasPtr 对象都有自己的拷贝
@@ -71,6 +73,13 @@ private:
     int i;
 };
 
+inline
+void swap(HasPtr &lhs, HasPtr&rhs)
+{
+    using std::swap;
+    swap(lhs.ps, rhs.ps);       // 交换指针，而不是 string 数据
+    swap(lhs.i, rhs.i);         // 交换 int 成员
+}
 // 输出函数的实现
 ostream& HasPtr::display(ostream&os)
 {
