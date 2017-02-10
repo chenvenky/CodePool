@@ -21,26 +21,14 @@ should hold a set that points to the Messages in that Folder.
 
 //   37:  Add members to the Message class to insert or remove a given Folder* into folders.
 
-//        These members are analogous to Folder¡¯s addMsg and remMsg operations.
-
-
+//        These members are analogous to FolderÂ¡Â¯s addMsg and remMsg operations.
 
 #ifndef MESSAGE_H
-
 #define MESSAGE_H
-
-
-
 #include <string>
-
 #include <set>
 
-
-
 class Folder;
-
-
-
 class Message {
 
     friend void swap(Message &, Message &);
@@ -62,7 +50,6 @@ public:
     void remove(Folder&);
 
 
-
     void print_debug();
 
 
@@ -78,7 +65,6 @@ private:
     void add_to_Folders(const Message&);
 
     void remove_from_Folders();
-
 
 
     void addFldr(Folder *f) { folders.insert(f); }
