@@ -8,7 +8,7 @@
 - 任意给定的 Message 的内容只有一个副本。这样如果一条 Message内容改变，我们在各个Folder中浏览时看到都改变了。
 
 设计思路如图：
-![](../src/MessageAndFolder.png)
+![](src/MessageAndFolder.PNG)
 
 为了记录 Message 位于哪些 Folder 中， 每个 Message 都会保存一个它所在 Folder 的指针的 set, 同样的，每个 Folder 都保存一个它包含的 Message 的指针的 set. 
 #### 类的设计
@@ -17,5 +17,5 @@
 - 当我们销毁一个 Message 时，它将不复存在。因此，我们必须从包含此消息的所有 Folder 中删除指向此 Message 的指针。 
 - 当我们将一个 Message 对象赋予另一个 Message 对象时，左侧 Message 的内容会被右侧 Message 的内容替代。我们还必须更新 Folder 集合，从原来包含左侧 Message 的 Folder 中将它删除， 并将它添加到包含右侧 Message 的 Folder 中。 
 	观察这些操作， 我们可以看到，析构函数和拷贝赋值运算符都必须从包含一条 Message 的所有 Folder 中删除它。 类似的，拷贝构造函数和拷贝赋值运算符都要将一个 Message 添加到给定的一组 Folder 中。 我们将定义两个 private 的工具函数来完成这些操作。 
-** Best Practices: 拷贝赋值运算符通常执行拷贝构造函数和析构函数中也要做的工作。这种情况下，公共的工作应该放在 private 的工具函数中完成。** 
+**Best Practices: 拷贝赋值运算符通常执行拷贝构造函数和析构函数中也要做的工作。这种情况下，公共的工作应该放在 private 的工具函数中完成。** 
 
