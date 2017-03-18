@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 /**
@@ -58,10 +59,6 @@ void strcpy_function()
 * 功能: 将 src 内最多 n 个字符复制进 dest 字符数组
 *
 */
-/**
-* 格式：strlen(字符数组名)
-* 功能：测字符串的实际长度（不含字符串结束标志 '\0'）并作为函数返回值。
-*/
 void strncpy_function()
 {
     char str[20];
@@ -70,6 +67,11 @@ void strncpy_function()
     puts(str);
 }
 
+/**
+* 格式：strlen(字符数组名)
+* 功能：测字符串的实际长度（不含字符串结束标志 '\0'）并作为函数返回值。
+*/
+
 void strlen_function()
 {
     static char str[] = "Learn C language again!";
@@ -77,7 +79,33 @@ void strlen_function()
     printf("the str length: %d\n", len);
 }
 
+/**
+* 格式：char* strchr(str, c)
+* 功能：str 为要查找的字符串， c 为要查找的字符， 然后将该地址返回
+*/
+void strchr_function()
+{
+    char *str = "123456789068899567766";
+    char *p;
+    p = strchr(str, '5');
+    printf("%s\n", str);
+    printf("%s\n", p);
+}
 
+
+/**
+* 格式：int atoi(const char* str)
+* 功能：atoi()会扫描参数 str 字符串， 跳过前面的空白字符，直到遇上数字或正负号才开始做转换，
+*       而再遇到非数字或字符串结束时('\0')才结束转换，并将结果返回。
+* 返回值： 返回转换后的整数型；如果 str 不能转换成 int 或者 str 为空字符串，那么返回 0
+*/
+void atoi_functon()
+{
+    char buffer[256];
+    printf("Enter a number:");
+    fgets(buffer, 256, stdin);
+    printf("The value entered is %d\n", atoi(buffer));
+}
 
 int main()
 {
@@ -87,5 +115,7 @@ int main()
     strcpy_function();
     strlen_function();
     strncpy_function();
+    strchr_function();
+    atoi_functon();
     return 0;
 }
