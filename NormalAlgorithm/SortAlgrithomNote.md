@@ -35,7 +35,7 @@ void merge_sort(int* A, int left, int right, int * T)   // right 为尾后元素
         int pos1 = left, pos2 = mid, pos = left;
         merge_sort(A, left, mid, T);     // 递归求解
         merge_sort(A, mid, right, T);     // 递归求解
-        while(pos1 < mid || pos2 < mid)
+        while(pos1 < mid || pos2 < right)
         {
             if(pos2 >= right || (pos1 < mid && A[pos1] <= A[pos2]))   // 从左半数组复制到临时空间
                 T[pos++] = A[pos1++];
@@ -132,7 +132,7 @@ void num_sort(int data[], int begin, int end, int length)
         T[i] = data[i];
     for(int i = begin; i <= end; i++)
     {
-        data[count[T[i]]] = T[i];
+        data[count[T[i]]-1] = T[i];     // 排序数组从 0 开始，要减一
         count[T[i]]--;
     }
 }
@@ -185,7 +185,7 @@ int Partition(int data[], int length, int start, int end);   // 划分函数
 
 int Select_k(int data[], int length, int start, int end, int i)
 {
-	if(data == NULL || length <= 0 || begin < 0 || end >= length)
+	if(data == NULL || length <= 0 || start < 0 || end >= length)
         throw runtime_error("Invalid Parameters");
     if(i<=0 || i > length)
     	throw runtime_error("Invalid Parameters");
@@ -207,7 +207,7 @@ int Partition(int data[], int length, int start, int end)   // 划分函数
     if(data == NULL || length <= 0 || start < 0 || end >= length)
         throw runtime_error("Invalid Parameters");
     // int index = RandomInRange(start, end);
-    // swap(&data[index], &data[end]);
+    // swap(data[index], data[end]);
     int small = start - 1;
     for(int index = start; index < end; index++)
     {

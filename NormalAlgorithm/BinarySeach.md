@@ -11,9 +11,9 @@ int bsearch(int data[], int start, int end, int val)	// end 为未后元素
 		if(data[mid] == val)
 			return mid; 
 		else if(data[mid] > val)
-			end = m; 
+			end = mid; 
 		else 
-			start = m + 1; 
+			start = mid + 1; 
 	}
 	return -1;	// 没找到
 }
