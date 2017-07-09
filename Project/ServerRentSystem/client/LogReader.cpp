@@ -58,13 +58,13 @@ void LogReader::backup() throw (BackupException)
 
 
 // 读取上一次未匹配好的登录日志文件
-void LogReader::readLoginsFile()
+void LogReader::readLoginsFile() throw(ReadException)
 {
    ifstream ifs(m_loginsFile);
    cout << m_loginsFile << endl;  
    if(!ifs)
    {
-       cout << "Can't open m_loginsFile" << endl; 
+       throw ReadException("File: " + m_loginsFile + "can't open"); 
    }
 
    LogRec rec; 
@@ -81,12 +81,12 @@ void LogReader::readLoginsFile()
 
 
 // 读取备份日志文件
-void LogReader::readBackFile()
+void LogReader::readBackFile() throw (ReadException)
 {
-    ifstream ifs(m_logFile.c_str(), ios::binary); 
+    ifstream ifs(m_logFile, ios::binary); 
     if(!ifs)
     {
-        cout << "failed to open file wtmp" << endl;
+        throw ReadException("File: " + m_logFile + "can't open"); 
         return; 
     }
 
@@ -185,9 +185,13 @@ void LogReader::match()
 
 
 // 保存本次未匹配的登入记录
-void LogReader::saveLoginsFile()
+void LogReader::saveLoginsFile() throw(SaveException)
 {
-   ofstream ofs(m_loginsFile.c_str()); 
+   ofstream ofs(m_loginsFile);
+   if(!ofs)
+   {
+        throw SaveException("Can't save File" + m_loginsFile); 
+   } 
 
    // Note: the format 
    for(list<LogRec>::iterator it = m_logins.begin(); it != m_logins.end(); it++)
