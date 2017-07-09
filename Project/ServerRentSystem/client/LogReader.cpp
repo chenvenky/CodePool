@@ -31,7 +31,7 @@ list<MLogRec> LogReader::readLog()
 
 
 // 备份原始日志文件，并把新文件名存入 m_logFile
-void LogReader::backup()
+void LogReader::backup() throw (BackupException)
 {
     // get current time
     time_t now_time = time(NULL); 
@@ -42,7 +42,12 @@ void LogReader::backup()
     int status = system(cmd.c_str()); 
     int ret = WEXITSTATUS(status); 
     // deal with exception   
-
+    if(ret == 1)
+        throw BackupException("备份文件:" + m_logFile + " 异常");
+    else if(ret == 2)
+        throw BackupException("清空文件:" + m_logFile + "异常"); 
+    
+    m_logFile = m_logFile + "." + currentTime; 
 }
 
 
