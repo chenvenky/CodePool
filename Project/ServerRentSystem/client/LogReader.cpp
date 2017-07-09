@@ -26,8 +26,11 @@ LogReader::~LogReader()
  */
 list<MLogRec> LogReader::readLog()
 {
-    // TODO:
-
+    backup(); 
+    readLoginsFile(); 
+    readBackFile(); 
+    match(); 
+    saveLoginsFile();  
 }
 
 
@@ -135,7 +138,40 @@ void LogReader::readBackFile()
 // 匹配
 void LogReader::match()
 {
-   // TODO : implement
+   list<LogRec>::iterator InIter; 
+   list<LogRec>::iterator OutIter; 
+
+   while(m_logouts.size())
+   {
+       OutIter = m_logouts.begin(); 
+       InIter = m_logins.begin(); 
+
+       while(InIter != m_logins.end())
+       {
+            if(!strcmp(OutIter->logname, InIter->logname) && 
+               OutIter->pid == InIter->pid && 
+               !strcmp(OutIter->logip, InIter->logip)
+              )
+            {
+                MLogRec rec; 
+                strncpy(rec.logname, InIter->logname, sizeof(rec.logname)); 
+                rec.logintime = InIter->logtime; 
+                rec.logouttime = OutIter->logtime; 
+                rec.durations = rec.logouttime - rec.logintime; 
+                strncpy(rec.logip, InIter->logip, sizeof(rec.logip)); 
+                
+                m_logs.push_back(rec); 
+                m_logouts.pop_front(); 
+                m_logins.erase(InIter); 
+
+                break;      
+            }
+            else
+            {
+                InIter++; 
+            }
+       }
+   }
 }
 
 
