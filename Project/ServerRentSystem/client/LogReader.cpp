@@ -61,7 +61,54 @@ void LogReader::readLoginsFile()
 // 读取备份日志文件
 void LogReader::readBackFile()
 {
-   // TODO : implement
+    ifstream ifs(m_logFile.c_str(), ios::binary); 
+    if(!ifs)
+    {
+        cout << "failed to open file wtmp" << endl;
+        return; 
+    }
+
+    struct stat st; 
+    stat(m_logFile.c_str(), &st); 
+    // cout << "file size: " << st.st_size << endl; 
+    int i; 
+    for(i = 0; i < st.st_size / 372; i++)
+    {
+        LogRec rec; 
+
+        ifs.seekg(i * 372, ios::beg); 
+        ifs.read(rec.logname, sizeof(rec.logname)); 
+        //cout << "name:\t" << rec.logname << endl; 
+        if(rec.logname[0] == '.')   // ignore '.telnet'
+            continue; 
+
+        ifs.seekg(36, ios::cur); 
+        ifs.read((char*)&rec.pid, sizeof(rec.pid)); 
+        rec.pid = ntohl(rec.pid); 
+        // cout << "pid:\t" << rec.pid << endl; 
+
+        ifs.read((char*)&rec.type, sizeof(rec.type)); 
+        rec.type = ntohs(rec.type); 
+        //cout << "type:\t" << rec.type << endl; 
+
+        ifs.seekg(6, ios::cur); 
+        ifs.read((char*)&rec.logtime, sizeof(rec.logtime)); 
+        rec.logtime = ntohl(rec.logtime); 
+        //cout << "time:\t" << rec.logtime << endl; 
+
+        ifs.seekg(30, ios::cur); 
+        ifs.read(rec.logip, sizeof(rec.logip)); 
+        // cout << "ip:\t" << rec.logip << endl; 
+
+        if(rec.type == 7)
+        {
+            m_logins.insert(m_logins.begin(), rec); 
+        }
+        else if(rec.type == 8)
+        {
+            m_logouts.insert(m_logouts.begin(), rec); 
+        }
+    }        
 }
 
 
