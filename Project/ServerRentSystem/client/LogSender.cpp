@@ -5,7 +5,7 @@ LogSender::LogSender()
 {
 }
 
-virtual LogSender::~LogSender()
+LogSender::~LogSender()
 {
    // TODO : implement
 }

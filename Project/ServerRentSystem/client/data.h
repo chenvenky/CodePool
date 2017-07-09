@@ -2,6 +2,8 @@
 #define _DATA_H_
 
 #include "ClientException.h"
+#include <list>
+#include <cstdlib>
 
 typedef struct
 {

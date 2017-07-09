@@ -26,14 +26,23 @@ LogReader::~LogReader()
  */
 list<MLogRec> LogReader::readLog()
 {
-   
+    backup(); 
 }
 
 
 // 备份原始日志文件，并把新文件名存入 m_logFile
 void LogReader::backup()
 {
-   // TODO : implement
+    // get current time
+    time_t now_time = time(NULL); 
+    char currentTime[64]; 
+    strftime(currentTime, sizeof(currentTime), "%Y%m%d%H%M%S", localtime(&now_time)); 
+    string cmd = ""; 
+    cmd = cmd + "./backup.sh "+ m_logFile + " " + m_logFile + "." + currentTime; 
+    int status = system(cmd.c_str()); 
+    int ret = WEXITSTATUS(status); 
+    // deal with exception   
+
 }
 
 

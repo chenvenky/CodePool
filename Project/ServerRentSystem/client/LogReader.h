@@ -2,7 +2,6 @@
 #define __LOGREADER_H__
 
 #include <iostream>
-#include <list>
 #include "data.h"
 
 using namespace std;
@@ -12,7 +11,7 @@ class LogReader
 public:
    LogReader(std::string const& logFile, std::string const& loginsFile, std::string const& failFile);
    ~LogReader();
-   list<MLogRec> readLog() throw(ClientException);
+   list<MLogRec> readLog();
 
 private:
    void backup();               // 备份文件，并把新文件名放进 m_logFile 

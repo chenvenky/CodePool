@@ -1,19 +1,19 @@
 #ifndef __CLIENT_H__
 #define __CLIENT_H__
 
-class LogSender;
-class LogReader;
 
 #include "LogReader.h"
 #include "LogSender.h"
 #include "ClientException.h"
+class LogSender;
+class LogReader;
 
 class Client
 {
 public:
    Client(LogReader& reader, LogSender& sender);
    ~Client();
-   void dataMine(void) throw (ClientException); 
+   void dataMine(); 
 
 private:
    LogReader& m_reader;

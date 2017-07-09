@@ -3,7 +3,7 @@
 #include "Client.h"
 
 
-Client::Client(LogReader& reader, LogSender& sender)
+Client::Client(LogReader& reader, LogSender& sender) : m_reader(reader), m_sender(sender)
 {
    // TODO : implement
 }
@@ -15,19 +15,8 @@ Client::~Client()
 }
 
 
-void Client::dataMine(void)
+void Client::dataMine()
 {
    // TODO : implement
 }
 
-int main()
-{
-	try{
-		dataMine();
-	}
-	catch(ClientException e){
-	}
-	
-	
-	return 0;
-}
