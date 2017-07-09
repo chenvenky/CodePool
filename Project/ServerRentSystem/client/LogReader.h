@@ -14,7 +14,7 @@ public:
    list<MLogRec> readLog();
 
 private:
-   void backup();               // 备份文件，并把新文件名放进 m_logFile 
+   void backup() throw (BackupException);               // 备份文件，并把新文件名放进 m_logFile 
    void readLoginsFile();       // 读取上一次没匹配好的登入日志记录  
    void readBackFile();         // 读取备份日志记录文件
    void match();                // 匹配
