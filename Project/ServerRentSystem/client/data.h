@@ -4,6 +4,7 @@
 #include "ClientException.h"
 #include <list>
 #include <cstdlib>
+#include <cstring>
 #include <ctime>
 #include <sys/types.h>
 #include <sys/stat.h>
