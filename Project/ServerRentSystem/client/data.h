@@ -4,6 +4,7 @@
 #include "ClientException.h"
 #include <list>
 #include <cstdlib>
+#include <ctime>
 
 typedef struct
 {
