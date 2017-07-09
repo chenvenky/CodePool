@@ -5,6 +5,11 @@
 #include <list>
 #include <cstdlib>
 #include <ctime>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fstream>
+#include <arpa/inet.h>
 
 typedef struct
 {
