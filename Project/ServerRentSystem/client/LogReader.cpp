@@ -26,7 +26,8 @@ LogReader::~LogReader()
  */
 list<MLogRec> LogReader::readLog()
 {
-    backup(); 
+    // TODO:
+
 }
 
 
@@ -55,6 +56,22 @@ void LogReader::backup() throw (BackupException)
 void LogReader::readLoginsFile()
 {
    // TODO : implement
+   ifstream ifs(m_loginsFile.c_str()); 
+   if(!ifs)
+   {
+       cout << "Can't open m_loginsFile" << endl; 
+   }
+
+   LogRec rec; 
+   while(ifs)
+   {
+        ifs >> rec.logname >> rec.pid >> rec.type 
+            >> rec.logtime >> rec.logip; 
+
+         m_logins.push_back(rec); 
+   }
+   
+   ifs.close(); 
 }
 
 
@@ -102,13 +119,16 @@ void LogReader::readBackFile()
 
         if(rec.type == 7)
         {
-            m_logins.insert(m_logins.begin(), rec); 
+            //m_logins.insert(m_logins.begin(), rec); 
+            m_logins.push_back(rec); 
         }
         else if(rec.type == 8)
         {
-            m_logouts.insert(m_logouts.begin(), rec); 
+            m_logouts.push_back(rec); 
         }
-    }        
+    } 
+
+    ifs.close();        
 }
 
 
@@ -122,5 +142,14 @@ void LogReader::match()
 // 保存本次未匹配的登入记录
 void LogReader::saveLoginsFile()
 {
-   // TODO : implement
+   ofstream ofs(m_loginsFile.c_str()); 
+
+   // Note: the format 
+   for(list<LogRec>::iterator it = m_logins.begin(); it != m_logins.end(); it++)
+   {
+        ofs << it->logname << " " << it->pid << " " << it->type << " "
+            << it->logtime << " " << it->logip << endl; 
+   }
+
+   ofs.close(); 
 }
