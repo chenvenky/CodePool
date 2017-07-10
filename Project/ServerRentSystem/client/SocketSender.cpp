@@ -57,7 +57,7 @@ void SocketSender::connectServer(void) throw(SocketException)
 // 读取上次发送失败的日志文件记录
 void SocketSender::readFailFile(list<MLogRec>& logs) throw(ReadException)
 {
-    ifstream ifs(m_failFile); 
+    ifstream ifs(m_failFile.c_str()); 
     if(!ifs)
     {
         throw ReadException("File: " + m_failFile + " can't open"); 
@@ -108,7 +108,7 @@ void SocketSender::sendData(list<MLogRec>& logs) throw(SendException)
 // 保存发送失败的日志记录
 void SocketSender::saveFailFile(list<MLogRec>& log) throw(SaveException)
 {
-    ofstream ofs(m_failFile); 
+    ofstream ofs(m_failFile.c_str()); 
     if(!ofs)
     {
         throw SaveException("Can't save File" + m_failFile);
