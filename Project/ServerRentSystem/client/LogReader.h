@@ -11,7 +11,7 @@ class LogReader
 public:
    LogReader(std::string const& logFile, std::string const& loginsFile, std::string const& failFile);
    ~LogReader();
-   list<MLogRec> readLog();
+   list<MLogRec> readLog() throw (ClientException);
 
 private:
    void backup() throw(BackupException);        // 备份文件，并把新文件名放进 m_logFile 
