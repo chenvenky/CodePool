@@ -24,7 +24,7 @@ LogReader::~LogReader()
  * 4. 匹配
  * 5. 保存本次未匹配的登入记录
  */
-list<MLogRec> LogReader::readLog()
+list<MLogRec> LogReader::readLog() throw(ClientException)
 {
     backup(); 
     readLoginsFile();
@@ -60,8 +60,7 @@ void LogReader::backup() throw (BackupException)
 // 读取上一次未匹配好的登录日志文件
 void LogReader::readLoginsFile() throw(ReadException)
 {
-   ifstream ifs(m_loginsFile);
-   cout << m_loginsFile << endl;  
+   ifstream ifs(m_loginsFile.c_str());
    if(!ifs)
    {
        throw ReadException("File: " + m_loginsFile + "can't open"); 
@@ -83,7 +82,7 @@ void LogReader::readLoginsFile() throw(ReadException)
 // 读取备份日志文件
 void LogReader::readBackFile() throw (ReadException)
 {
-    ifstream ifs(m_logFile, ios::binary); 
+    ifstream ifs(m_logFile.c_str(), ios::binary); 
     if(!ifs)
     {
         throw ReadException("File: " + m_logFile + "can't open"); 
@@ -187,7 +186,7 @@ void LogReader::match()
 // 保存本次未匹配的登入记录
 void LogReader::saveLoginsFile() throw(SaveException)
 {
-   ofstream ofs(m_loginsFile);
+   ofstream ofs(m_loginsFile.c_str());
    if(!ofs)
    {
         throw SaveException("Can't save File" + m_loginsFile); 
