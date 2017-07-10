@@ -8,7 +8,7 @@ class ConsoleSender : public LogSender
 public:
    ConsoleSender();
    ~ConsoleSender();
-   virtual void sendLog(list<MLogRec>& logs);   // 将日志记录输出到控制台
+   virtual void sendLog(list<MLogRec>& logs) throw();   // 将日志记录输出到控制台
 };
 
 #endif  // __CONSOLESENDER_H__

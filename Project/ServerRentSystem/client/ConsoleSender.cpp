@@ -13,7 +13,7 @@ ConsoleSender::~ConsoleSender()
 
 
 // 将已匹配的日志记录输出到控制台
-void ConsoleSender::sendLog(list<MLogRec>& logs)
+void ConsoleSender::sendLog(list<MLogRec>& logs) throw()
 {
     list<MLogRec>::iterator it = logs.begin(); 
     while(it != logs.end())

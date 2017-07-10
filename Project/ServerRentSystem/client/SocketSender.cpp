@@ -2,9 +2,9 @@
 
 
 // 构造函数
-SocketSender::SocketSender(std::string const& failFile, std::string const& ip, const short port):m_failFile(failFile), m_ip(ip), m_port(port)
+SocketSender::SocketSender(std::string const& failFile, std::string const& ip, const short port):m_failFile(failFile), m_ip(ip), m_port(port), sockfd(-1)
 {
-    sockfd = -1; 
+
 }
 
 // 析构函数 -- 关闭 TCP 连接
@@ -19,22 +19,23 @@ SocketSender::~SocketSender()
 // 2. 读取上次失败的日志记录
 // 3. 通过网络发送日志记录给服务器
 // 4. 保存发送失败的日志记录
-void SocketSender::sendLog(list<MLogRec>& logs)
+void SocketSender::sendLog(list<MLogRec>& logs) throw(ClientException)
 {
     connectServer(); 
     readFailFile(logs); 
     sendData(logs); 
+    saveFailFile(logs); 
 }
 
 
 // 连接服务器
-void SocketSender::connectServer(void)
+void SocketSender::connectServer(void) throw(SocketException)
 {
    // 1. 获取 socket 描述符
    sockfd = socket(AF_INET, SOCK_STREAM, 0); 
    if(sockfd == -1) 
    {
-       // throw err
+        throw SocketException("获取 socket 描述错误"); 
    }
 
    // 2. 准备通信地址
@@ -47,19 +48,19 @@ void SocketSender::connectServer(void)
    int ret = connect(sockfd, (struct sockaddr*)&server_addr, sizeof(server_addr)); 
    if(ret == -1)
    {
-       // throw err strerror(errno)
+       throw SocketException("连接服务器错误" + string(strerror(errno))); 
    }
 }
 
 
 
 // 读取上次发送失败的日志文件记录
-void SocketSender::readFailFile(list<MLogRec>& logs)
+void SocketSender::readFailFile(list<MLogRec>& logs) throw(ReadException)
 {
     ifstream ifs(m_failFile); 
     if(!ifs)
     {
-        // throw ReadException("File: " + m_failFile" + "can't open"); 
+        throw ReadException("File: " + m_failFile + " can't open"); 
     }
 
     MLogRec mrec; 
@@ -76,7 +77,7 @@ void SocketSender::readFailFile(list<MLogRec>& logs)
 
 
 // 通过网络将容器中的数据发送给服务器
-void SocketSender::sendData(list<MLogRec>& logs)
+void SocketSender::sendData(list<MLogRec>& logs) throw(SendException)
 {
      char buf[1024]; 
 
@@ -96,6 +97,8 @@ void SocketSender::sendData(list<MLogRec>& logs)
         if(ret == -1)
         {
             saveFailFile(logs); 
+            
+            throw SendException(); 
             break; 
         }
      }
@@ -103,12 +106,12 @@ void SocketSender::sendData(list<MLogRec>& logs)
 
 
 // 保存发送失败的日志记录
-void SocketSender::saveFailFile(list<MLogRec>& log)
+void SocketSender::saveFailFile(list<MLogRec>& log) throw(SaveException)
 {
     ofstream ofs(m_failFile); 
     if(!ofs)
     {
-        // throw SaveException("Can't save File" + m_loginsFile);
+        throw SaveException("Can't save File" + m_failFile);
     }
 
     // Note: the format 
@@ -121,27 +124,3 @@ void SocketSender::saveFailFile(list<MLogRec>& log)
     ofs.close(); 
 }
 
-// Test for debug
-/*
-int main()
-{
-    string failFile = "failFile"; 
-    string Ip = "127.0.1.1"; 
-    int port = 8000; 
-
-    SocketSender sender(failFile, Ip, port); 
-    list<MLogRec> log;
-     
-    MLogRec mrec; 
-    strcpy(mrec.logname, "chenwenke"); 
-    mrec.logintime = 20170710; 
-    mrec.logouttime = 20170711; 
-    mrec.durations = 1; 
-    strcpy(mrec.logip, "192.168.0.1"); 
-    log.push_back(mrec); 
-
-    sender.sendLog(log); 
-
-    return 0; 
-}
-*/

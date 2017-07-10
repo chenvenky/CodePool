@@ -9,7 +9,7 @@ class LogSender
 {
 public:
    virtual ~LogSender();
-   virtual void sendLog(list<MLogRec>& logs) = 0;   // 定义发送日志记录的接口
+   virtual void sendLog(list<MLogRec>& logs) throw(ClientException) = 0;   // 定义发送日志记录的接口
 
 };
 
