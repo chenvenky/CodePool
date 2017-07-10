@@ -203,6 +203,7 @@ void LogReader::saveLoginsFile() throw(SaveException)
 }
 
 // Test to debug
+/*
 int main()
 {
     string logFile = "wtmpx"; 
@@ -216,3 +217,4 @@ int main()
     cout << "matched：\t" << res.size() << endl; 
     return 0;  
 }
+*/
