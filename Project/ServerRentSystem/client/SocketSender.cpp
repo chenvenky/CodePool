@@ -85,13 +85,13 @@ void SocketSender::sendData(list<MLogRec>& logs) throw(SendException)
      {
         MLogRec mrec = logs.front();  
         logs.pop_front();  
-        
+       
         strcpy(buf, "");         
         sprintf(buf, "%s %s", buf, mrec.logname); 
         sprintf(buf, "%s %d", buf, mrec.logintime); 
         sprintf(buf, "%s %d", buf, mrec.logouttime); 
         sprintf(buf, "%s %d", buf, mrec.durations); 
-        sprintf(buf, "%s %s", buf, mrec.logip);     
+        sprintf(buf, "%s %s\t", buf, mrec.logip);    // Note: the last '\t' important
         int ret = send(sockfd, buf, strlen(buf), 0); 
         
         if(ret == -1)
