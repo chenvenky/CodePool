@@ -5,18 +5,20 @@
 
 Client::Client(LogReader& reader, LogSender& sender) : m_reader(reader), m_sender(sender)
 {
-   // TODO : implement
+
 }
 
 
 Client::~Client()
 {
-   // TODO : implement
+
 }
 
 
-void Client::dataMine()
+void Client::dataMine() throw(ClientException)
 {
-   // TODO : implement
+   list<MLogRec> logs = m_reader.readLog(); 
+   m_sender.sendLog(logs); 
+
 }
 

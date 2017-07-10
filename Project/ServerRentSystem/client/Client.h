@@ -13,7 +13,7 @@ class Client
 public:
    Client(LogReader& reader, LogSender& sender);
    ~Client();
-   void dataMine(); 
+   void dataMine() throw(ClientException); 
 
 private:
    LogReader& m_reader;
