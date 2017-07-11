@@ -41,4 +41,12 @@ class DBException:public ServerException
 		DBException(string const& msg):ServerException(msg){}
 };
 
+
+class FileException:public ServerException
+{
+    public:
+        FileException():ServerException("数据保存进数据库文件异常"){}
+        FileException(string const& msg):ServerException(msg){}
+};
+ 
 #endif  // __SERVEREXCEPTION_H__
