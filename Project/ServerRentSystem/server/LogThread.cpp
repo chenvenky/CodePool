@@ -1,11 +1,5 @@
 #include "LogThread.h"
 
-
-LogThread::LogThread()
-{
-}
-
-
 LogThread::~LogThread()
 {
    // TODO : implement
@@ -14,14 +8,22 @@ LogThread::~LogThread()
 // 创建并启动线程
 void LogThread::start()
 {
-   // TODO : implement
+    pthread_t tid; 
+   int ret = pthread_create(&tid, NULL, task, this); 
+   if(ret == -1)
+   {
+       // throw ThreadException("Failed to create thread"); 
+   }
 }
 
 
 // 包装 线程处理函数的静态函数
-void LogThread::task()
+void* LogThread::task(void* arg)
 {
-   // TODO : implement
+    static_cast<LogThread*>(arg)->run();
+//    pthread_exit(0);  
+    return NULL; 
 }
+
 
 
