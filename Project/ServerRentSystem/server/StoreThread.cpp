@@ -13,5 +13,22 @@ StoreThread::~StoreThread()
 // 从存储队列中取出数据，交给 dao
 void StoreThread::run(void)
 {
-   // TODO : implement
+    extern LogQueue logQu; 
+
+    MLogRec storeRec; 
+
+    // ToDO
+    while(1)
+    {
+        logQu >> storeRec; 
+
+        printf("%s\t", storeRec.logname); 
+        printf("%d\t", storeRec.logintime); 
+        printf("%d\t", storeRec.logouttime); 
+        printf("%d\t", storeRec.durations);
+        printf("%s\n", storeRec.logip); 
+        // TODO: 存入数据库
+    }
+
+   delete this; 
 }

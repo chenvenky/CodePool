@@ -1,9 +1,10 @@
 #ifndef __STORETHREAD_H__
 #define __STORETHREAD_H__
 
-#include <iostream>
 #include "LogDao.h"
 #include "LogThread.h"
+#include "LogQueue.h"
+
 using namespace std;
 
 class StoreThread : public LogThread
