@@ -15,3 +15,4 @@ debug:
 	cp wtmpx.* wtmpx
 	cat /dev/null > loginsFile
 	cat /dev/null > failFile
+	make clean
