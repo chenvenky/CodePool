@@ -19,7 +19,7 @@
 #include <sys/sendfile.h>
 #include <sys/socket.h>
 #include <sys/mman.h>
-
+#include <pthread.h>
 #include <iostream>
 #include <fstream>
 #include <list>
