@@ -20,6 +20,7 @@ void LogThread::start()
 // 包装 线程处理函数的静态函数
 void* LogThread::task(void* arg)
 {
+    pthread_detach(pthread_self());     // detach thread
     static_cast<LogThread*>(arg)->run();
 //    pthread_exit(0);  
     return NULL; 
