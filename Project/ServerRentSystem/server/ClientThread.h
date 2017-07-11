@@ -1,6 +1,9 @@
 #ifndef __CLIENTTHREAD_H__
 #define __CLIENTTHREAD_H__
+
 #include "LogThread.h"
+#include "LogQueue.h"
+
 class ClientThread : public LogThread
 {
 public:
