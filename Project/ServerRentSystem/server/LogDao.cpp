@@ -5,3 +5,8 @@ void LogDao::insert(MLogRec const& log)
 {
    // TODO : implement
 }
+
+LogDao::~LogDao()
+{
+
+}
