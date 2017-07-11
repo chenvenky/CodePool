@@ -6,13 +6,13 @@ LogThread::~LogThread()
 }
 
 // 创建并启动线程
-void LogThread::start()
+void LogThread::start() throw(ThreadException)
 {
     pthread_t tid; 
    int ret = pthread_create(&tid, NULL, task, this); 
    if(ret == -1)
    {
-       // throw ThreadException("Failed to create thread"); 
+        throw ThreadException("Failed to create thread"); 
    }
 }
 
