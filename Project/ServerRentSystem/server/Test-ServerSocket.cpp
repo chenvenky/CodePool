@@ -9,14 +9,23 @@
     
  ************************************************************************/
 #include "ServerSocket.h"
+#include "StoreThread.h"
+#include "FileDao.h"
 
  int main()
  {
      string Ip = "127.0.1.1"; 
      short port = 8000; 
+    
+     FileDao dao("haha"); 
+     StoreThread storeT(dao); 
+     storeT.start(); 
+
+    printf("********************************************************\n"); 
 
      ServerSocket server(Ip, port); 
      server.acceptClient(); 
+    
 
      return 0; 
  }
