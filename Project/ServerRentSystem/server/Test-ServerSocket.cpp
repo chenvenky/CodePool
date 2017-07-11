@@ -17,7 +17,7 @@
      string Ip = "127.0.1.1"; 
      short port = 8000; 
     
-     FileDao dao("haha"); 
+     FileDao dao("dbFile"); 
      StoreThread storeT(dao); 
      storeT.start(); 
 
