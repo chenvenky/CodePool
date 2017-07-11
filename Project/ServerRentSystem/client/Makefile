@@ -4,7 +4,6 @@ $(TARGET):$(OBJS)
 	g++ -g $(OBJS) -o $(TARGET) 
 %.o:%.cpp
 	g++ -c -g $< -o $@
-
 clean: 
 	rm wtmpx.* 2>/dev/null 
 	rm *.o 2>/dev/null
