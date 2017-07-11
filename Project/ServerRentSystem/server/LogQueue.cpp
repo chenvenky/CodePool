@@ -1,11 +1,11 @@
 #include "LogQueue.h"
 
 // 初始化互斥量，条件变量
-LogQueue::LogQueue()
+LogQueue::LogQueue() :  m_mtx(PTHREAD_MUTEX_INITIALIZER), 
+                        m_notFull(PTHREAD_COND_INITIALIZER),
+                        m_notEmpty(PTHREAD_COND_INITIALIZER)
 {
-    m_mtx = PTHREAD_MUTEX_INITIALIZER; 
-    m_notFull = PTHREAD_COND_INITIALIZER; 
-    m_notEmpty = PTHREAD_COND_INITIALIZER; 
+
 }
 
 

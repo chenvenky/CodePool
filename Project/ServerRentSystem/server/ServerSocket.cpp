@@ -42,6 +42,8 @@ ServerSocket::~ServerSocket()
  */
 void ServerSocket::acceptClient(void)
 {
+
+    LogQueue LogQu;
     while(1)
     {
         struct sockaddr_in client_addr; 
