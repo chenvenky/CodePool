@@ -1,8 +1,6 @@
 #ifndef __SERVERSOCKET_H__
 #define __SERVERSOCKET_H__
-#include <iostream>
-
-using namespace std; 
+#include "ClientThread.h"
 
 class ServerSocket
 {
