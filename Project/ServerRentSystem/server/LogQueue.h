@@ -1,9 +1,6 @@
 #ifndef __LOGQUEUE_H__
 #define __LOGQUEUE_H__
 
-#include <iostream>
-#include <list>
-#include <pthread.h>
 #include "data.h"
 using namespace std;
 
