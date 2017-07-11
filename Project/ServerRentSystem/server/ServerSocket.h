@@ -5,9 +5,9 @@
 class ServerSocket
 {
 public:
-   ServerSocket(std::string const& ip, short port);
+   ServerSocket(std::string const& ip, short port) throw(SocketException);
    ~ServerSocket();
-   void acceptClient(void);     // 等待客户端的连接，如果有客户端连接到达，
+   void acceptClient(void) throw(SocketException);     // 等待客户端的连接，如果有客户端连接到达，
                                 // 创建客户端线程接收数据
 
 private:

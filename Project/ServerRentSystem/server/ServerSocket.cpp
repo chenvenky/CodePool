@@ -1,12 +1,12 @@
 #include "ServerSocket.h"
 
 // 启动套接字监听线程
-ServerSocket::ServerSocket(std::string const& ip, short port)
+ServerSocket::ServerSocket(std::string const& ip, short port) throw(SocketException)
 {
     m_sockfd = socket(AF_INET, SOCK_STREAM, 0); 
     if(m_sockfd == -1)
     {
-        // printf(), strerror(errno); 
+        throw SocketException("无法生成监听套接字： " + string(strerror(errno))); 
     }
 
     struct sockaddr_in server_addr; 
@@ -20,7 +20,7 @@ ServerSocket::ServerSocket(std::string const& ip, short port)
     int ret = bind(m_sockfd, (struct sockaddr*)&server_addr, sizeof(server_addr)); 
     if(ret == -1)
     {
-        // printf(""); strerror(errno);
+        throw SocketException("绑定IP和端口失败：" + string(strerror(errno)));
     }
 
     // 4. 监听
@@ -40,7 +40,7 @@ ServerSocket::~ServerSocket()
  * (1). 创建接收客户端数据的线程
  * (2). 把数据写进 数据队列（全局变量， 单例模式）
  */
-void ServerSocket::acceptClient(void)
+void ServerSocket::acceptClient(void) throw(SocketException)
 {
     while(1)
     {
@@ -49,7 +49,7 @@ void ServerSocket::acceptClient(void)
         int accfd = accept(m_sockfd, (struct sockaddr*)&client_addr, &len); 
         if(accfd == -1)
         {
-            // printf("server accept failed")
+            throw SocketException("server accept failed"); 
             return; 
         }
         (new ClientThread(accfd))->start(); 
