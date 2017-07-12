@@ -13,12 +13,17 @@
 
 int main()
 {
+    // FileDao dao("dbFile"); 
+	string user="system"; 
+	string passwd="open123"; 
+
+	OracleDao dao(user, passwd); 
+
+
     string Ip = "127.0.1.1"; 
     short port = 8000; 
 
-    FileDao dao("dbFile"); 
     Server server(dao, Ip, port); 
-
     server.dataMine(); 
 
     return 0; 
