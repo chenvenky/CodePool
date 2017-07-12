@@ -17,39 +17,35 @@ void ClientThread::run(void)
 {
     
     extern LogQueue logQu; 
-    char buf[1024]; 
-    int count = 0; 
 
     list<MLogRec> logList; 
-    while(recv(m_accfd, buf, sizeof(buf), 0))
+    MLogRec mrec; 
+
+    while(1)
     {
-//        printf("%s\n", buf);  
-    	MLogRec mrec; 
-          
-    	sscanf(buf, "%s %d %d %d %s", mrec.logname, &mrec.logintime, &mrec.logouttime, &mrec.durations, mrec.logip); 
-        strcpy(buf, ""); 
+        int len = sizeof(mrec); 
+        int rlen = 0; 
+        while(len)
+        {
+            rlen = recv(m_accfd, (char*)(&mrec) + (sizeof(mrec) - len), len, 0); 
+            
+            if(rlen <= 0)       // end or err
+                goto label; 
+
+            len -= rlen; 
+        }
 
         logList.push_back(mrec); 
-        
-/*      
-        printf("%s\t", mrec.logname); 
-        printf("%d\t", mrec.logintime); 
-        printf("%d\t", mrec.logouttime); 
-        printf("%d\t", mrec.durations); 
-        printf("%s\n", mrec.logip); 
-
-        strcpy(buf, ""); 
-        count++; 
-*/
     }
+    
+label:
+    cout << "Total records: " << logList.size() << endl; 
 
     while(logList.size())
     {
         logQu << logList.front(); 
         logList.pop_front(); 
     }
-
-//    printf("Total:\t%d\n", count); 
 
 
     delete this; 
