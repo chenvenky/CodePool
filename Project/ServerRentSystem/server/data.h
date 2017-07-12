@@ -30,7 +30,7 @@ typedef struct
 	int pid;
 	short int  type;
 	int logtime;
-	char logip[257];
+	char logip[32];
 }LogRec;
 
 typedef struct
@@ -39,7 +39,7 @@ typedef struct
 	int logintime;
 	int logouttime;
 	int durations;
-	char logip[257];
+	char logip[32];
 }MLogRec;
 
 
