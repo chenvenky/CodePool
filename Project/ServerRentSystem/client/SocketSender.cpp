@@ -79,20 +79,12 @@ void SocketSender::readFailFile(list<MLogRec>& logs) throw(ReadException)
 // 通过网络将容器中的数据发送给服务器
 void SocketSender::sendData(list<MLogRec>& logs) throw(SendException)
 {
-     char buf[1024]; 
 
      while(logs.size())
      {
         MLogRec mrec = logs.front();  
-        logs.pop_front();  
        
-        strcpy(buf, "");         
-        sprintf(buf, "%s %s", buf, mrec.logname); 
-        sprintf(buf, "%s %d", buf, mrec.logintime); 
-        sprintf(buf, "%s %d", buf, mrec.logouttime); 
-        sprintf(buf, "%s %d", buf, mrec.durations); 
-        sprintf(buf, "%s %s\t", buf, mrec.logip);    // Note: the last '\t' important
-        int ret = send(sockfd, buf, strlen(buf), 0); 
+        int ret = send(sockfd, &mrec, sizeof(mrec), 0); 
         
         if(ret == -1)
         {
@@ -101,6 +93,7 @@ void SocketSender::sendData(list<MLogRec>& logs) throw(SendException)
             throw SendException(); 
             break; 
         }
+        logs.pop_front();  
      }
 }
 
