@@ -1,8 +1,9 @@
 # Server Rent System
     
-This System has a client and a server. 
-	- client: read login File log: wtempx, match login record. Then send the matched record to server. 
-	- server: create a thread receive record from the client. Then send to another thread, to store the records into Oracle database or a file. 
+This System has a client and a server.
+
+- client: read login File log: wtempx, match login record. Then send the matched record to server. 
+- server: create a thread receive record from the client. Then send to another thread, to store the records into Oracle database or a file. 
   
   
 ## Compile and run
@@ -38,7 +39,7 @@ SQL> create table logSys(
 
 5. Will print  a cute number `2183`, WO! clap for yourself, you sucessed! 
  
-6. Note: before you another time complie and run this process. 
+6. Note: before you another time complie and run this process, please run commands: 
 ```
 (cd client && make debug)
 (cd server && make debug)
