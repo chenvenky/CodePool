@@ -1,6 +1,11 @@
-## Server Rent System
-
-#### How to use
+# Server Rent System
+    
+This System has a client and a server. 
+	- client: read login File log: wtempx, match login record. Then send the matched record to server. 
+	- server: create a thread receive record from the client. Then send to another thread, to store the records into Oracle database or a file. 
+  
+  
+## Compile and run
 
 1. Open your Oracle database in your favoriate terminal, create a database table:
 ```sql
@@ -17,19 +22,24 @@ SQL> create table logSys(
   7  durations number not null);
 ```
 
-2. Then comple the client, into client director, then:
-`make debug`, don't care about the errors. 
-then `make`
+2. Compile the server and client.
+```
+(cd server && make)
+(cd client && make)
+```
 
-3. Then comple the server, into server director, then:
-`make debug`, don't care about the errors. 
-
-4. run the server and the client. 
+3. Run the server and the client. 
 	- In your server director. run the server: `./server`
 	- In your client director. run the client: `./client`
+	- Note: first, run `./server` then run `./client`, the order is very important. 
 
-5. Then count how many records in you database table:
+4. Count how many records in you database table:
 	- `select count(*) from logSys;`
 
-6. Will print  a cute number `2183`, ok! you sucess! 
+5. Will print  a cute number `2183`, WO! clap for yourself, you sucessed! 
  
+6. Note: before you another time complie and run this process. 
+```
+(cd client && make debug)
+(cd server && make debug)
+```
