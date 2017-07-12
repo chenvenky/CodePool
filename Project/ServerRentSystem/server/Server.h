@@ -4,6 +4,7 @@
 #include "ServerSocket.h"
 #include "StoreThread.h"
 #include "FileDao.h"
+#include "OracleDao.h"
 
 class Server
 {
