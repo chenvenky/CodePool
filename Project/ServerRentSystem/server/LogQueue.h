@@ -19,6 +19,7 @@ private:
    pthread_cond_t m_notFull;        // 未满 - 条件变量
    pthread_cond_t m_notEmpty;       // 非空 - 条件变量
 
+   enum { QUEUESIZE = 100}; 
 };
 
 #endif  // __LOGQUEUE_H__
