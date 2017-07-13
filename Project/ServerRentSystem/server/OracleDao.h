@@ -2,7 +2,7 @@
 #define __ORACLEDAO_H__
 
 #include "LogDao.h"
-
+#include <fstream>
 class OracleDao : public LogDao
 {
 public:

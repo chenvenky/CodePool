@@ -4,8 +4,6 @@ exec sql include oraca;
 exec oracle option (oraca=yes);
 exec oracle option (release_cursor=yes);  
 
-//exec sql create sequence log_seq increment by 1 start with 0;
-//exec sql create sequence log_seq;
 
 exec sql begin declare section; 
 
@@ -32,11 +30,7 @@ OracleDao::OracleDao(std::string const& user, std::string const& passwd)
 	exec sql connect:userpasswd; 
 	if(sqlca.sqlcode)
 	{
-		cout << "connect db error" << endl;
-	}
-	else
-	{
-		cout << "connect success" << endl; 
+		throw DBException("connect Oracle database err, so save record into dbFile");
 	}
 }
 
@@ -69,10 +63,19 @@ void OracleDao::insert(MLogRec const& log)
 	else
 	{
 		exec sql rollback; 
-		cout << "bad insert:\t" << sqlca.sqlerrm.sqlerrml << endl;
-		cout << sqlca.sqlerrm.sqlerrmc << endl;  
-		cout << g_dbLog.logname << "\t" << g_dbLog.logip << "\t" 
+
+		ofstream ofsErr("ErrLog"); 
+		if(!ofsErr)
+		{
+			throw FileException("The fail record save in file: ErrLog"); 
+		}
+
+		ofsErr << g_dbLog.logname << "\t" << g_dbLog.logip << "\t" 
 		<< g_dbLog.logintime << "\t" << g_dbLog.logouttime << "\t" << g_dbLog.durations << endl; 
+
+		cout << "Err Code:\t" << sqlca.sqlerrm.sqlerrml << "\t";
+		cout << "Err msg:\t" << sqlca.sqlerrm.sqlerrmc << endl;  
+		cout << "Err log Save in file: ErrLog" << endl; 
 	}
 
 
