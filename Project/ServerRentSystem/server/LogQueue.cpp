@@ -19,7 +19,7 @@ LogQueue::~LogQueue()
 LogQueue& LogQueue::operator<<(MLogRec const log)
 {
    pthread_mutex_lock(&m_mtx); 
-   while(m_log.size() >= 100)
+   while(m_log.size() >= QUEUESIZE)
    {
        pthread_cond_wait(&m_notFull, &m_mtx); 
    }
