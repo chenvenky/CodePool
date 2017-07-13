@@ -77,24 +77,42 @@ void SocketSender::readFailFile(list<MLogRec>& logs) throw(ReadException)
 
 
 // 通过网络将容器中的数据发送给服务器
+
+static const int BUFSIZE = 2048; 	// define buffer size
+static char buf[BUFSIZE]; 			// define buffer
 void SocketSender::sendData(list<MLogRec>& logs) throw(SendException)
 {
-
+	 int len = 0; 
+	 int ret = 0; 
+	 memset(buf, 0, sizeof(buf)); 
+	 MLogRec mrec;
      while(logs.size())
      {
-        MLogRec mrec = logs.front();  
-       
-        int ret = send(sockfd, &mrec, sizeof(mrec), 0); 
-        
-        if(ret == -1)
-        {
-            saveFailFile(logs); 
-            
-            throw SendException(); 
-            break; 
-        }
-        logs.pop_front();  
+		if(len + sizeof(mrec) <= BUFSIZE)
+		{
+        	MLogRec mrec = logs.front();  
+			logs.pop_front();  
+			memcpy(buf+len, &mrec, sizeof(mrec)); 
+			len += sizeof(mrec); 
+		}
+		else
+		{
+        	ret = send(sockfd, buf, len, 0); 
+			len = 0; 
+			if(ret == -1)
+			{
+				saveFailFile(logs); 
+				throw SendException(); 
+				break; 
+			}
+		}
      }
+	 ret = send(sockfd, buf, len, 0); 
+	 if(ret == -1)
+	 {
+		saveFailFile(logs); 
+		throw SendException(); 
+	 }
 }
 
 
