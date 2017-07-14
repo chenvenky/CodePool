@@ -23,7 +23,7 @@ int main()
     string Ip = "127.0.1.1"; 
     int port = 8000; 
 
-    LogReader reader(logFile, loginsFile, failFile); 
+    LogReader reader(logFile, loginsFile); 
     SocketSender sender(failFile, Ip, port); 
 
     Client Mycli(reader, sender); 
