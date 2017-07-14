@@ -17,7 +17,7 @@ Client::~Client()
 
 void Client::dataMine() throw(ClientException)
 {
-    list<MLogRec> logs = m_reader.readLog();
+    list<MLogRec>& logs = m_reader.readLog();   // use refference: avoid copy overhead
 
     m_sender.sendLog(logs); 
 }
