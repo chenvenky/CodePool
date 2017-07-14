@@ -2,11 +2,10 @@
 
 
 // 构造函数
-LogReader::LogReader(std::string const& logFile, std::string const& loginsFile, std::string const& failFile)
+LogReader::LogReader(std::string const& logFile, std::string const& loginsFile)
 {
    m_logFile = logFile;
    m_loginsFile = loginsFile;
-   m_failFile =failFile;
 }
 
 
@@ -24,7 +23,7 @@ LogReader::~LogReader()
  * 4. 匹配
  * 5. 保存本次未匹配的登入记录
  */
-list<MLogRec> LogReader::readLog() throw(ClientException)
+list<MLogRec>& LogReader::readLog() throw(ClientException)
 {
     backup(); 
     readLoginsFile();
@@ -202,19 +201,3 @@ void LogReader::saveLoginsFile() throw(SaveException)
    ofs.close(); 
 }
 
-// Test to debug
-/*
-int main()
-{
-    string logFile = "wtmpx"; 
-    string loginsFile = "loginsFile"; 
-    string failFile = "failFile"; 
-    LogReader reader(logFile, loginsFile, failFile); 
-
-    list<MLogRec> res = reader.readLog(); 
-
-    // dubug
-    cout << "matched：\t" << res.size() << endl; 
-    return 0;  
-}
-*/
