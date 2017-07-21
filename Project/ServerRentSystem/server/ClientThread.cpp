@@ -18,7 +18,7 @@ void ClientThread::run(void)
     extern LogQueue logQu; 
     list<MLogRec> logList; 
     MLogRec mrec; 
-	const int BUFSIZE = 2048;   
+	const int BUFSIZE = 512;    // 相对小一些，防止栈溢出   
 	char buf[BUFSIZE];          // Note: buf[] can't be global/static variable --- thread safe
 	int rlen = 0; 
 	int pos = 0; 
