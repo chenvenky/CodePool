@@ -77,11 +77,10 @@ void SocketSender::readFailFile(list<MLogRec>& logs) throw(ReadException)
 
 
 // 通过网络将容器中的数据发送给服务器
-
-static const int BUFSIZE = 2048; 	// define buffer size
-static char buf[BUFSIZE]; 			// define buffer
 void SocketSender::sendData(list<MLogRec>& logs) throw(SendException)
 {
+	 static const int BUFSIZE = 2048; // define buffer size， 套接字发送缓冲区低水位默认值即为：2048
+	 static char buf[BUFSIZE]; 	  // define buffer, 静态字符数组变量，防止栈溢出
 	 int len = 0; 
 	 int ret = 0; 
 	 memset(buf, 0, sizeof(buf)); 
