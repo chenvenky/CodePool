@@ -3,10 +3,10 @@
 * Author: Chen WenKe
 * Email: chenwenke666@gmail.com
 * Blog: https://caotanxiaoke.github.io
-* Created Time: Mon 17 Jul 2017 06:49:26 AM PDT
+* Created Time: Sat 22 Jul 2017 01:30:11 AM PDT
 *
 * Description: 
-    从头到尾打印链表： 递归。     
+    滑动窗口的最大值。    
  ************************************************************************/
 
 #include <iostream>
@@ -24,28 +24,25 @@
 #include <cstdlib>
 using namespace std;
 
-struct ListNode
-{
-    int val; 
-    struct ListNode* next; 
-    ListNode(int x) : val(x), next(NULL) {
-
-    }
-}; 
-
-class Solution
-{
+class Solution {
 public:
-    vector<int> printListFromTailToHead(ListNode* head)
+    vector<int> maxInWindows(const vector<int>& num, unsigned int size)
     {
         vector<int> res; 
-        if(head != NULL)
+        if(num.size() == 0 || size > num.size())
+            return res; 
+        
+        deque<int> deq; 
+        for(int i = 0; i < num.size(); i++)
         {
-            if(head->next != NULL)
-            {
-                res = printListFromTailToHead(head->next); 
-            }
-            res.push_back(head->val); 
+            while(!deq.empty() && (num[deq.back()] <= num[i]))
+                  deq.pop_back();
+            deq.push_back(i); 
+            while(deq.front() + size <= i)
+                  deq.pop_front(); 
+                  
+            if(i >= size - 1)
+                  res.push_back(num[deq.front()]); 
         }
 
         return res; 
@@ -54,6 +51,7 @@ public:
 
 int main()
 {
+
 
     return 0; 
 }
