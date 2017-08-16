@@ -1,9 +1,7 @@
-# Coding history and Template
-### No matter what, There are all code and comments doc
+# Algorithms and Templates
 
-Of course, most of those code write in C++
+There are some algorithms and tempates. I plan to grow up this repository as the time go on. And I holp this repository will improve my work efficiency in the future. At the same time, if it can help you with your work(even in a little), I will be very happy. 
 
-# 这里是代码池
-## 这里记录的是我的代码历史，以及自己整理或收藏的代码模板。
-### 所以，这里是存放代码和注释文档的地方。
-当然这里的大部分代码是用C++写成的。 
+
+### If you have questions(find a bug in the code or in the doc). Please let me know, thank you my sincere friend. 
+
